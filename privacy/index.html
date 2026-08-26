@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moodroll — Privacy Policy</title>
+<meta name="description" content="Moodroll is a mood journal made of photographs. Your photos, moods and notes stay on your phone: no account, and no server holding your diary.">
+<meta name="robots" content="index, follow">
+<meta name="color-scheme" content="dark light">
+<style>:root {
+  --ground: #100804;
+  --card:   #16110D;
+  --raised: #1D1917;
+  --ink:    #FAFAFA;
+  --muted:  #A19A96;
+  --line:   #3E3936;
+  --accent: #E0A94A;
+  --serif:  Iowan Old Style, Palatino, Palatino Linotype, Georgia, Times New Roman, serif;
+  --sans:   -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
+  --mono:   ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --ground: #FBF9F6; --card: #F3EFE9; --raised: #EDE7DE;
+    --ink: #1A1512; --muted: #5E5751; --line: #DCD5CC; --accent: #8A5A12;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--sans); font-size: 17px; line-height: 1.62;
+  /* The pages hold unbreakable tokens (`com.ntb.moodroll.app`, an email address). On the narrowest
+     phones there is no width to break them at, and a page that scrolls sideways is one whose
+     right-hand words are simply not read. Only fires when a word genuinely cannot fit. */
+  overflow-wrap: break-word;
+}
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.22; }
+a { color: var(--accent); text-underline-offset: .18em; }
+a:hover { text-decoration: none; }
+strong { font-weight: 600; }
+code {
+  font-family: var(--mono); font-size: .86em; background: var(--card);
+  border: 1px solid var(--line); border-radius: 4px; padding: .08em .34em;
+}
+
+main { max-width: 41rem; margin: 0 auto; padding: 3.5rem 1.25rem 5rem; }
+h1 { font-size: 2.25rem; margin: 0 0 .35rem; letter-spacing: -.01em; }
+h2 { font-size: 1.5rem; margin: 3rem 0 .75rem; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+h3 { font-size: 1.15rem; margin: 2rem 0 .5rem; }
+p, ul { margin: 0 0 1.1rem; }
+ul { padding-left: 1.15rem; }
+li { margin-bottom: .6rem; }
+li::marker { color: var(--muted); }
+table { width: 100%; border-collapse: collapse; margin: 0 0 1.4rem; font-size: .95rem;
+        display: block; overflow-x: auto; }
+th, td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; color: var(--muted); font-size: .82rem; letter-spacing: .04em;
+     text-transform: uppercase; }
+td:first-child { white-space: nowrap; }
+.updated { color: var(--muted); font-size: .95rem; margin-bottom: 2.5rem; }
+.back { display: inline-block; margin-bottom: 2rem; font-size: .95rem; }
+footer { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
+         color: var(--muted); font-size: .85rem; }
+@media (max-width: 480px) { body { font-size: 16px; } h1 { font-size: 1.85rem; } }
+@media print {
+  :root { --ground: #fff; --card: #fff; --raised: #fff; --ink: #000; --muted: #444;
+          --line: #bbb; --accent: #000; }
+  main { max-width: none; padding: 0; }
+  .back { display: none; }
+  a { text-decoration: underline; }
+  h2 { page-break-after: avoid; }
+}</style>
+</head>
+<body>
+<main>
+<a class="back" href="../">← Moodroll</a>
+
+<h1>Moodroll — Privacy Policy</h1>
+
+<p class="updated">Last updated: 25 August 2026</p>
+
+<p>Moodroll (<code>com.ntb.moodroll.app</code>) is a photo mood journal — a diary you keep one day at a time, with a film-style camera for the days worth a photograph. This page explains what it does with your data. The short version: <strong>it stays on your phone.</strong></p>
+
+<h2>What we collect</h2>
+
+<p><strong>Nothing from your diary.</strong> There is no account, no sign-in and no server that holds it. We cannot see your photos, your moods or your notes, because they are never sent anywhere.</p>
+
+<p>Moodroll does send two kinds of anonymous technical data, both processed by Google Firebase: <strong>usage events</strong> and <strong>crash reports</strong>. They are listed in full in the next section. Neither ever contains a photo, a note, or which mood you tagged.</p>
+
+<h2>Usage and crash reports</h2>
+
+<p>Moodroll is made by one person with no budget. These are how we find out whether the app works on phones we cannot hold, and whether anyone is using it.</p>
+
+<p><strong>What is sent</strong></p>
+
+<ul><li><strong>That something happened, not what it was about</strong> — that a photo was taken, that a mood was tagged, that a photo or a camera card was shared, that a photo was developed again in the darkroom, that a fresh roll was loaded, that the Pro screen appeared, that a purchase was started, and that one completed. The list of events is fixed in the app's source; nothing you type is ever part of one.</li><li><strong>Which part of the app you did it from</strong> — for example, that a mood was recorded from the home screen widget rather than after taking a photo. This is how we tell whether the quick ways of recording a day are worth keeping. It says nothing about <em>what</em> you recorded.</li><li><strong>Which camera style</strong> the photo was taken with (an internal id such as <code>gold200</code>).</li><li><strong>That you saved a copy of your diary to a file, or restored one, and how many days it held.</strong> Not where you put the file, not what was in it — a count, and nothing else.</li><li><strong>When the app had to simplify a photograph</strong> — that some of the picture processing was dropped, and a one-word reason for it, such as the phone running short of memory. This is how a photo that came out worse than it should have gets fixed on a phone we cannot hold.</li><li><strong>Whether this installation has Moodroll Pro</strong> — a yes or no, and nothing about the purchase itself. It is what makes the numbers above readable at all: "is the app worth paying for" cannot be answered by a count that does not know who paid.</li><li><strong>What your phone's hardware could do</strong> — how much of its camera processing the app was allowed to turn off, and how long one test image took to render. This is what tells us whether the app is too slow on cheaper phones, which is the only way it gets fixed for them.</li><li><strong>Crash reports</strong> — the error, where in the code it happened, your phone's model, its Android version, and a random identifier Google generates for this installation.</li><li>Moodroll also <strong>downloads</strong> one number from Firebase, which decides when the Pro screen first appears. That is a download; it carries nothing about you.</li></ul>
+
+<p><strong>What is never sent</strong></p>
+
+<ul><li>Your photos or their thumbnails, in any form.</li><li>Your notes, the short one and the long one, and the tags you write on a day.</li><li><strong>Which mood you tagged.</strong> The app records <em>that</em> you tagged one — never which, and never with a date. This is deliberate and it is the line we care most about: "which mood, on which day" is the most sensitive thing Moodroll holds, and it does not leave your phone.</li><li>The dates of your entries, your streak, or anything else that could reconstruct your diary.</li><li>Your advertising ID and your device's Android ID. Both are switched <strong>off</strong>, and ad personalisation is switched off with them. Moodroll shows no ads and sells nothing to advertisers.</li></ul>
+
+<p>Google's handling of what is sent is covered by <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
+
+<h2>What the app stores on your device</h2>
+
+<p>All of it lives in Moodroll's private storage, which no other app can read:</p>
+
+<ul><li><strong>Photos</strong> you take with the app. Each one is kept as <strong>three files</strong>: the finished photograph, a small thumbnail of it, and <strong>the original frame exactly as your camera sensor delivered it</strong>, before any of Moodroll's colour work. That third file is what <em>Darkroom</em> develops from — it is how the same moment can be re-made through a different camera, any number of times, without ever copying a copy. It is kept for as long as the entry is, and deleting the entry deletes all three. It means a Moodroll photograph takes roughly twice the space of the picture you can see.</li><li><strong>Diary entries</strong> — the day, the mood you tagged and how strongly you felt it, any tags you wrote on that day, and your notes: the single line from the result screen and the longer one from the day screen. <strong>A day can be recorded with no photo at all</strong>, and many are.</li><li><strong>Cameras you build.</strong> Pro lets you assemble your own camera; if you do, the name you give it and the settings you chose are stored in Moodroll's private storage as a small text file, one per camera. The name is the only free text in it. Moodroll <strong>never sends a camera anywhere by itself</strong> — but you can, and only if you choose to: the shelf lets you hand one out as <strong>a short code</strong> or as <strong>a <code>.moodcam</code> file</strong>, through Android's own share sheet. Both carry the camera's name and its settings and nothing else — no days, no moods, no notes, no photographs.</li><li><strong>Settings</strong> — your chosen camera, format, reminder time, whether the app lock is on, and technical details about your phone's camera and graphics performance that the app uses to process photos.</li></ul>
+
+<p>Uninstalling Moodroll deletes all of it. You can also delete any individual entry inside the app, and any camera you built.</p>
+
+<h2>Backups</h2>
+
+<p>Moodroll's diary and photos are <strong>excluded from Google Drive backup</strong>. If you back up your phone, your moods, notes and photos are not part of that backup.</p>
+
+<p>On Android 12 and newer, the diary <em>is</em> included in <strong>direct device-to-device transfer</strong> — the copy your phone makes when you set up a new phone from your old one. That transfer goes straight between your two devices, not through a server. It exists so that a diary you have kept for years survives a phone upgrade, since Moodroll has no cloud sync to restore from.</p>
+
+<h3>Saving your own copy</h3>
+
+<p>Settings → <em>Your diary</em> → <strong>Save a copy</strong> writes your whole diary — every entry, note and photo — into a single <code>.zip</code> file, and Android asks you where to put it. You can restore it later on any phone with <strong>Restore from a file</strong>, which only adds days that are missing and never replaces or deletes anything.</p>
+
+<p>The copy carries the <strong>original sensor frames</strong> described above as well as the finished photographs, which is why it is larger than the pictures alone. That is deliberate: a backup that could not re-develop a day would be a backup of the prints and not of the negatives.</p>
+
+<p>Three things worth being plain about:</p>
+
+<ul><li><strong>The file holds your diary, and only your diary.</strong> Your settings are not in it — a restored phone starts with the daily reminder off, which the app says on screen after an import — and neither are any cameras you built. <strong>Those have their own copy:</strong> the shelf's <em>Save my cameras</em> writes a second <code>.zip</code> holding the cameras alone, and <em>Restore my cameras</em> brings them back. Two separate files because they are two separate things, and the app says so under the import result when your shelf has none of your own cameras on it yet.</li><li><strong>Moodroll does not send that file anywhere.</strong> It hands it to whichever place you chose and never looks at it again. If you pick a cloud folder, the file goes to that company under their terms, not ours.</li><li><strong>The file is not protected the way the app's own storage is.</strong> Inside Moodroll, your diary sits in private storage no other app can read. A <code>.zip</code> you have saved is an ordinary file — anything with access to that folder can open it. That is the trade for being able to keep your own backup, and it is why the app never makes one without you asking.</li></ul>
+
+<h2>Permissions</h2>
+
+<table>
+<thead><tr>
+<th>Permission</th>
+<th>Why</th>
+</tr></thead>
+<tbody>
+<tr><td>Camera</td><td>To take photos. Only asked for when you open the camera — a diary of moods, tags and notes works without ever granting it.</td></tr>
+<tr><td>Notifications</td><td>Only for the daily reminder, and only if you turn it on.</td></tr>
+<tr><td>Run at startup</td><td>So the reminder you set still works after you restart your phone.</td></tr>
+<tr><td>Biometrics</td><td>Only to unlock the app lock, if you turn it on. Moodroll never receives your fingerprint — Android only tells it yes or no.</td></tr>
+<tr><td>Billing</td><td>To sell Moodroll Pro through Google Play.</td></tr>
+</tbody>
+</table>
+
+<h3>About the network permissions</h3>
+
+<p>If you look at Moodroll's permission list you will see <code>INTERNET</code> and a few related ones. Two things use them: the usage and crash reports described above, and Google's Play Billing library, which the app includes in order to sell Moodroll Pro. Purchases themselves go through the Google Play Store app on your phone, not over a connection Moodroll opens.</p>
+
+<p>We are telling you this because we would rather explain it than have you find it. <strong>No photo, mood or note is uploaded by Moodroll</strong>, with or without those permissions — that is the promise the app is built around, and it is the one thing here that will not change.</p>
+
+<h2>Purchases</h2>
+
+<p>Moodroll Pro is sold through Google Play. When you buy it, <strong>Google</strong> handles the payment and tells the app only whether you own it. We never see your card, your billing address, or your Google account. Google's own privacy policy covers that transaction.</p>
+
+<p>Google's billing library also sends Google some diagnostic information about itself. That is Google's processing, described in <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>, and it contains nothing from your diary.</p>
+
+<h2>Children</h2>
+
+<p>Moodroll is not directed at children under 13, and we do not knowingly collect anything from them — or, for that matter, from anyone.</p>
+
+<h2>This is not a medical app</h2>
+
+<p>Moodroll is a diary. It is <strong>not a medical device, not a diagnostic tool, and not a substitute for professional care</strong>. It describes what you recorded and nothing more: it will not tell you what your moods mean, will not warn you about them, and will not diagnose anything. If you are struggling, please talk to a qualified professional.</p>
+
+<h2>Changes</h2>
+
+<p>If this policy changes, the date at the top changes with it. Because Moodroll has no way to contact you, the current version always lives at this address.</p>
+
+<h2>Contact</h2>
+
+<p>Questions about privacy: <strong>thanhbinhntn2018@gmail.com</strong></p>
+
+<footer>Moodroll · com.ntb.moodroll.app · Last updated: 25 August 2026</footer>
+</main>
+</body>
+</html>
