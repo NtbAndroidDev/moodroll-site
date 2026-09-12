@@ -7,6 +7,12 @@
 <meta name="description" content="Moodroll is a mood journal made of photographs. Your photos, moods and notes stay on your phone: no account, and no server holding your diary.">
 <meta name="robots" content="index, follow">
 <meta name="color-scheme" content="dark light">
+<link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#100804">
+<script>document.documentElement.className += " js";</script>
 <style>:root {
   --ground: #100804;
   --card:   #16110D;
@@ -149,6 +155,37 @@ footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3.5rem; color: var
 footer a { color: var(--accent); }
 footer p { margin: 0; max-width: none; }
 
+/* ------------------------------------------------------------------------------------ motion
+   Two moves and no more. A photograph appearing is what this app is about, so the hero month
+   develops frame by frame the way a contact sheet comes up in the tray, and everything below it
+   rises a few pixels as it is reached. Both are opacity and transform only — the two properties a
+   compositor can animate without laying the page out again on a phone.
+
+   ⚠️ **Everything is opt-in through `.js` on the root**, set in the head before first paint. With
+   no JavaScript nothing is ever hidden, which is what a crawler and a Play reviewer see, and there
+   is no flash of a hidden page if the script is slow. */
+.cta, .chip, .cam, .cam img, .top nav a, .mark { transition: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .figure i { animation: develop .55s cubic-bezier(.2, .7, .3, 1) both;
+              animation-delay: calc(var(--n, 0) * 26ms); }
+  @keyframes develop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+
+  html.js .reveal { opacity: 0; transform: translateY(14px); }
+  html.js .reveal.in { opacity: 1; transform: none;
+                       transition: opacity .55s ease, transform .55s cubic-bezier(.2, .7, .3, 1);
+                       transition-delay: calc(var(--i, 0) * 55ms); }
+
+  .cta { transition: filter .2s ease, transform .2s ease; }
+  .cta:hover { transform: translateY(-1px); }
+  .chip { transition: background-color .2s ease, border-color .2s ease, color .2s ease; }
+  .top nav a, .mark { transition: color .2s ease; }
+  .cam { transition: border-color .25s ease, transform .25s ease; }
+  .cam:hover { border-color: var(--muted); transform: translateY(-3px); }
+  .cam img { transition: transform .5s cubic-bezier(.2, .7, .3, 1); }
+  .cam:hover img { transform: scale(1.04); }
+}
+
 @media (max-width: 560px) {
   body { font-size: 16px; }
   section { padding: 3.25rem 0; }
@@ -177,14 +214,14 @@ grid you can read without a word of it.</p>
 <div class="cta-row"><span class="soon">Coming to Google Play</span>
 <p class="cta-note">No account, no server, no cloud sync. Nothing you write or shoot leaves your
 phone.</p></div>
-<div class="figure" aria-hidden="true"><i></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i class="shot"><img src="img/thumbs/gold200.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#4F4757;--l:#CCC3CF"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i class="shot"><img src="img/thumbs/portra400.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#6D4155;--l:#EABDCC"></i><i class="shot"><img src="img/thumbs/instax.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6C382F;--l:#E9B3A7"></i><i class="shot"><img src="img/thumbs/hp5.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i class="shot"><img src="img/thumbs/ccd2003.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i></i><i class="shot"><img src="img/thumbs/expired.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i class="shot"><img src="img/thumbs/aerochrome.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i class="shot"><img src="img/thumbs/slide64.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6D4155;--l:#EABDCC"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i class="shot"><img src="img/thumbs/polaroid600.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i class="shot"><img src="img/thumbs/camcorder.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="figure" aria-hidden="true"><i style="--n:0"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:1"></i><i class="shot" style="--n:2"><img src="img/thumbs/gold200.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:3"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:4"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:5"></i><i style="--d:#4F4757;--l:#CCC3CF;--n:6"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:7"></i><i class="shot" style="--n:8"><img src="img/thumbs/portra400.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--n:9"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:10"></i><i style="--d:#6D4155;--l:#EABDCC;--n:11"></i><i class="shot" style="--n:12"><img src="img/thumbs/instax.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:13"></i><i style="--d:#6C382F;--l:#E9B3A7;--n:14"></i><i class="shot" style="--n:15"><img src="img/thumbs/hp5.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:16"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:17"></i><i class="shot" style="--n:18"><img src="img/thumbs/ccd2003.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:19"></i><i style="--n:20"></i><i class="shot" style="--n:21"><img src="img/thumbs/expired.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:22"></i><i class="shot" style="--n:23"><img src="img/thumbs/aerochrome.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:24"></i><i class="shot" style="--n:25"><img src="img/thumbs/slide64.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6D4155;--l:#EABDCC;--n:26"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:27"></i><i class="shot" style="--n:28"><img src="img/thumbs/polaroid600.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i class="shot" style="--n:29"><img src="img/thumbs/camcorder.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--n:30"></i><i style="--n:31"></i><i style="--n:32"></i><i style="--n:33"></i><i style="--n:34"></i></div>
 <p class="caption">One square a day. The empty ones are the point — a gallery cannot draw the days
 you did not write.</p>
 </div>
 </section>
 
 <section>
-<div class="wrap narrow">
+<div class="wrap narrow reveal">
 <h2>A diary worth reopening</h2>
 <p class="sub">Most mood trackers record a day as an emoji and a line of text, and there is nothing
 to come back to. This one records it as a photograph.</p>
@@ -195,7 +232,7 @@ photograph at all, and many are.</p>
 </section>
 
 <section>
-<div class="wrap">
+<div class="wrap reveal">
 <h2>It never nags</h2>
 <p class="sub">Nothing here is a target, and nothing here is a verdict.</p>
 <ul class="rows">
@@ -213,20 +250,22 @@ it off and nothing chases you.</span></li>
 
 <section id="cameras">
 <div class="wrap">
+<div class="reveal">
 <h2>24 cameras, not 24 filters</h2>
 <p class="sub">Every photograph below was made by the camera it sits under, through the same render
 chain that runs on the phone. Each look is built per shot — grain, halation, lens softness,
 vignette — rather than stamped over a finished image.</p>
 <div class="chips"><button class="chip" aria-pressed="true" data-filter="all">All</button><button class="chip" aria-pressed="false" data-filter="free">Free</button><button class="chip" aria-pressed="false" data-filter="film">Film</button><button class="chip" aria-pressed="false" data-filter="disposable">Disposable</button><button class="chip" aria-pressed="false" data-filter="compact">Compact</button><button class="chip" aria-pressed="false" data-filter="ccd">CCD</button><button class="chip" aria-pressed="false" data-filter="instant">Instant</button><button class="chip" aria-pressed="false" data-filter="vintage">Vintage</button></div>
+</div>
 <ul class="grid">
-<li class="cam" data-cat="film" data-tier="free"><img src="img/cameras/gold200.jpg" loading="lazy" decoding="async" alt="A photograph made with Gold Hour"><div class="body"><h3>Gold Hour <span class="tier free">Free</span></h3><p>Warm and nostalgic — made for late afternoon light</p><span class="tags">Film · Bright · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/portra400.jpg" loading="lazy" decoding="async" alt="A photograph made with Soft Portrait"><div class="body"><h3>Soft Portrait <span class="tier pro">Pro</span></h3><p>Soft skin, low contrast, quiet colour</p><span class="tags">Film · True · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/superia400.jpg" loading="lazy" decoding="async" alt="A photograph made with Everyday"><div class="body"><h3>Everyday <span class="tier pro">Pro</span></h3><p>Cool greens, everyday snapshots</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/cinestill800t.jpg" loading="lazy" decoding="async" alt="A photograph made with Tungsten Night"><div class="body"><h3>Tungsten Night <span class="tier pro">Pro</span></h3><p>For warm indoor light — shadows fall teal</p><span class="tags">Film · Dynamic · ISO 800</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/hp5.jpg" loading="lazy" decoding="async" alt="A photograph made with Mono Grit"><div class="body"><h3>Mono Grit <span class="tier pro">Pro</span></h3><p>Black and white, coarse grain, hard contrast</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam" data-cat="disposable" data-tier="pro"><img src="img/cameras/quicksnap.jpg" loading="lazy" decoding="async" alt="A photograph made with One-Shot"><div class="body"><h3>One-Shot <span class="tier pro">Pro</span></h3><p>Single-use camera — heavy vignette, 27 frames</p><span class="tags">Disposable · Bright · ISO 400 · 27 frames</span></div></li><li class="cam" data-cat="compact" data-tier="free"><img src="img/cameras/pointshoot90s.jpg" loading="lazy" decoding="async" alt="A photograph made with Pocket &#x27;96"><div class="body"><h3>Pocket &#x27;96 <span class="tier free">Free</span></h3><p>90s compact — neutral, slightly cool</p><span class="tags">Compact · Neutral · ISO 400</span></div></li><li class="cam" data-cat="ccd" data-tier="free"><img src="img/cameras/ccd2003.jpg" loading="lazy" decoding="async" alt="A photograph made with CCD &#x27;03"><div class="body"><h3>CCD &#x27;03 <span class="tier free">Free</span></h3><p>Early-2000s digicam — punchy, saturated, a little harsh</p><span class="tags">CCD · Dynamic · ISO 100 · Small sensor</span></div></li><li class="cam" data-cat="ccd" data-tier="pro"><img src="img/cameras/camcorder.jpg" loading="lazy" decoding="async" alt="A photograph made with Handycam"><div class="body"><h3>Handycam <span class="tier pro">Pro</span></h3><p>Flat, greenish, old video tape</p><span class="tags">CCD · Faded · ISO 400 · Small sensor</span></div></li><li class="cam" data-cat="instant" data-tier="pro"><img src="img/cameras/polaroid600.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Square"><div class="body"><h3>Instant Square <span class="tier pro">Pro</span></h3><p>White border, lifted blacks, instant film</p><span class="tags">Instant · Faded · ISO 800</span></div></li><li class="cam" data-cat="instant" data-tier="pro"><img src="img/cameras/instax.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Mini"><div class="body"><h3>Instant Mini <span class="tier pro">Pro</span></h3><p>Bright, soft, a hint of pink</p><span class="tags">Instant · Softer · ISO 800</span></div></li><li class="cam" data-cat="vintage" data-tier="pro"><img src="img/cameras/expired.jpg" loading="lazy" decoding="async" alt="A photograph made with Expired Roll"><div class="body"><h3>Expired Roll <span class="tier pro">Pro</span></h3><p>Faded, colour-shifted, light leaks</p><span class="tags">Vintage · Expired · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/aerochrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Infra Pink"><div class="body"><h3>Infra Pink <span class="tier pro">Pro</span></h3><p>Leaves come back pink — for parks, trees, anything green</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/bleachbypass.jpg" loading="lazy" decoding="async" alt="A photograph made with Silver Bleach"><div class="body"><h3>Silver Bleach <span class="tier pro">Pro</span></h3><p>Colour drained, blacks deep — hard light suits it</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam" data-cat="vintage" data-tier="pro"><img src="img/cameras/crossprocess.jpg" loading="lazy" decoding="async" alt="A photograph made with Cross Lab"><div class="body"><h3>Cross Lab <span class="tier pro">Pro</span></h3><p>Developed in the wrong chemicals — cyan shadows, 36 frames</p><span class="tags">Vintage · Ultra · ISO 400 · 36 frames</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/slide64.jpg" loading="lazy" decoding="async" alt="A photograph made with Slide 64"><div class="body"><h3>Slide 64 <span class="tier pro">Pro</span></h3><p>Dense colour, deep blacks — give it good light</p><span class="tags">Film · Refined · ISO 100</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/pastelfade.jpg" loading="lazy" decoding="async" alt="A photograph made with Pale Wash"><div class="body"><h3>Pale Wash <span class="tier pro">Pro</span></h3><p>Muted and matte — the quiet one</p><span class="tags">Film · Faded · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/taiga.jpg" loading="lazy" decoding="async" alt="A photograph made with Taiga"><div class="body"><h3>Taiga <span class="tier pro">Pro</span></h3><p>Muted colour, blue-green foliage</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/arizona.jpg" loading="lazy" decoding="async" alt="A photograph made with Arizona"><div class="body"><h3>Arizona <span class="tier pro">Pro</span></h3><p>Soft desert warmth, turquoise skies</p><span class="tags">Film · Softer · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/calypso.jpg" loading="lazy" decoding="async" alt="A photograph made with Calypso"><div class="body"><h3>Calypso <span class="tier pro">Pro</span></h3><p>Summer blues and sunlit oranges</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/cine.jpg" loading="lazy" decoding="async" alt="A photograph made with Cine"><div class="body"><h3>Cine <span class="tier pro">Pro</span></h3><p>Orange light against teal shadows</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/apollo.jpg" loading="lazy" decoding="async" alt="A photograph made with Apollo"><div class="body"><h3>Apollo <span class="tier pro">Pro</span></h3><p>Rose reds for the last light</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/vista.jpg" loading="lazy" decoding="async" alt="A photograph made with Vista"><div class="body"><h3>Vista <span class="tier pro">Pro</span></h3><p>Clear greens and open blue skies</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/chrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Chrome"><div class="body"><h3>Chrome <span class="tier pro">Pro</span></h3><p>Dense colour with violet shadows</p><span class="tags">Film · True · ISO 800</span></div></li>
+<li class="cam reveal" style="--i:0" data-cat="film" data-tier="free"><img src="img/cameras/gold200.jpg" loading="lazy" decoding="async" alt="A photograph made with Gold Hour"><div class="body"><h3>Gold Hour <span class="tier free">Free</span></h3><p>Warm and nostalgic — made for late afternoon light</p><span class="tags">Film · Bright · ISO 200</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/portra400.jpg" loading="lazy" decoding="async" alt="A photograph made with Soft Portrait"><div class="body"><h3>Soft Portrait <span class="tier pro">Pro</span></h3><p>Soft skin, low contrast, quiet colour</p><span class="tags">Film · True · ISO 400</span></div></li><li class="cam reveal" style="--i:2" data-cat="film" data-tier="pro"><img src="img/cameras/superia400.jpg" loading="lazy" decoding="async" alt="A photograph made with Everyday"><div class="body"><h3>Everyday <span class="tier pro">Pro</span></h3><p>Cool greens, everyday snapshots</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/cinestill800t.jpg" loading="lazy" decoding="async" alt="A photograph made with Tungsten Night"><div class="body"><h3>Tungsten Night <span class="tier pro">Pro</span></h3><p>For warm indoor light — shadows fall teal</p><span class="tags">Film · Dynamic · ISO 800</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/hp5.jpg" loading="lazy" decoding="async" alt="A photograph made with Mono Grit"><div class="body"><h3>Mono Grit <span class="tier pro">Pro</span></h3><p>Black and white, coarse grain, hard contrast</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="disposable" data-tier="pro"><img src="img/cameras/quicksnap.jpg" loading="lazy" decoding="async" alt="A photograph made with One-Shot"><div class="body"><h3>One-Shot <span class="tier pro">Pro</span></h3><p>Single-use camera — heavy vignette, 27 frames</p><span class="tags">Disposable · Bright · ISO 400 · 27 frames</span></div></li><li class="cam reveal" style="--i:2" data-cat="compact" data-tier="free"><img src="img/cameras/pointshoot90s.jpg" loading="lazy" decoding="async" alt="A photograph made with Pocket &#x27;96"><div class="body"><h3>Pocket &#x27;96 <span class="tier free">Free</span></h3><p>90s compact — neutral, slightly cool</p><span class="tags">Compact · Neutral · ISO 400</span></div></li><li class="cam reveal" style="--i:3" data-cat="ccd" data-tier="free"><img src="img/cameras/ccd2003.jpg" loading="lazy" decoding="async" alt="A photograph made with CCD &#x27;03"><div class="body"><h3>CCD &#x27;03 <span class="tier free">Free</span></h3><p>Early-2000s digicam — punchy, saturated, a little harsh</p><span class="tags">CCD · Dynamic · ISO 100 · Small sensor</span></div></li><li class="cam reveal" style="--i:0" data-cat="ccd" data-tier="pro"><img src="img/cameras/camcorder.jpg" loading="lazy" decoding="async" alt="A photograph made with Handycam"><div class="body"><h3>Handycam <span class="tier pro">Pro</span></h3><p>Flat, greenish, old video tape</p><span class="tags">CCD · Faded · ISO 400 · Small sensor</span></div></li><li class="cam reveal" style="--i:1" data-cat="instant" data-tier="pro"><img src="img/cameras/polaroid600.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Square"><div class="body"><h3>Instant Square <span class="tier pro">Pro</span></h3><p>White border, lifted blacks, instant film</p><span class="tags">Instant · Faded · ISO 800</span></div></li><li class="cam reveal" style="--i:2" data-cat="instant" data-tier="pro"><img src="img/cameras/instax.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Mini"><div class="body"><h3>Instant Mini <span class="tier pro">Pro</span></h3><p>Bright, soft, a hint of pink</p><span class="tags">Instant · Softer · ISO 800</span></div></li><li class="cam reveal" style="--i:3" data-cat="vintage" data-tier="pro"><img src="img/cameras/expired.jpg" loading="lazy" decoding="async" alt="A photograph made with Expired Roll"><div class="body"><h3>Expired Roll <span class="tier pro">Pro</span></h3><p>Faded, colour-shifted, light leaks</p><span class="tags">Vintage · Expired · ISO 400</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/aerochrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Infra Pink"><div class="body"><h3>Infra Pink <span class="tier pro">Pro</span></h3><p>Leaves come back pink — for parks, trees, anything green</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/bleachbypass.jpg" loading="lazy" decoding="async" alt="A photograph made with Silver Bleach"><div class="body"><h3>Silver Bleach <span class="tier pro">Pro</span></h3><p>Colour drained, blacks deep — hard light suits it</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam reveal" style="--i:2" data-cat="vintage" data-tier="pro"><img src="img/cameras/crossprocess.jpg" loading="lazy" decoding="async" alt="A photograph made with Cross Lab"><div class="body"><h3>Cross Lab <span class="tier pro">Pro</span></h3><p>Developed in the wrong chemicals — cyan shadows, 36 frames</p><span class="tags">Vintage · Ultra · ISO 400 · 36 frames</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/slide64.jpg" loading="lazy" decoding="async" alt="A photograph made with Slide 64"><div class="body"><h3>Slide 64 <span class="tier pro">Pro</span></h3><p>Dense colour, deep blacks — give it good light</p><span class="tags">Film · Refined · ISO 100</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/pastelfade.jpg" loading="lazy" decoding="async" alt="A photograph made with Pale Wash"><div class="body"><h3>Pale Wash <span class="tier pro">Pro</span></h3><p>Muted and matte — the quiet one</p><span class="tags">Film · Faded · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/taiga.jpg" loading="lazy" decoding="async" alt="A photograph made with Taiga"><div class="body"><h3>Taiga <span class="tier pro">Pro</span></h3><p>Muted colour, blue-green foliage</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam reveal" style="--i:2" data-cat="film" data-tier="pro"><img src="img/cameras/arizona.jpg" loading="lazy" decoding="async" alt="A photograph made with Arizona"><div class="body"><h3>Arizona <span class="tier pro">Pro</span></h3><p>Soft desert warmth, turquoise skies</p><span class="tags">Film · Softer · ISO 400</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/calypso.jpg" loading="lazy" decoding="async" alt="A photograph made with Calypso"><div class="body"><h3>Calypso <span class="tier pro">Pro</span></h3><p>Summer blues and sunlit oranges</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/cine.jpg" loading="lazy" decoding="async" alt="A photograph made with Cine"><div class="body"><h3>Cine <span class="tier pro">Pro</span></h3><p>Orange light against teal shadows</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/apollo.jpg" loading="lazy" decoding="async" alt="A photograph made with Apollo"><div class="body"><h3>Apollo <span class="tier pro">Pro</span></h3><p>Rose reds for the last light</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam reveal" style="--i:2" data-cat="film" data-tier="pro"><img src="img/cameras/vista.jpg" loading="lazy" decoding="async" alt="A photograph made with Vista"><div class="body"><h3>Vista <span class="tier pro">Pro</span></h3><p>Clear greens and open blue skies</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/chrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Chrome"><div class="body"><h3>Chrome <span class="tier pro">Pro</span></h3><p>Dense colour with violet shadows</p><span class="tags">Film · True · ISO 800</span></div></li>
 </ul>
 <p class="tally" id="tally">24 cameras</p>
 </div>
 </section>
 
 <section>
-<div class="wrap">
+<div class="wrap reveal">
 <h2>The camera behaves like a camera</h2>
 <p class="sub">Three settings under the shutter and no menu behind them.</p>
 <ul class="rows pair">
@@ -249,7 +288,7 @@ notification shade.</p>
 </section>
 
 <section>
-<div class="wrap narrow">
+<div class="wrap narrow reveal">
 <h2>Your diary stays on your phone</h2>
 <p>Your photos, moods and notes never leave this phone. There is no account, no server, and no cloud
 sync — and the diary is excluded from Android's automatic Google Drive backup, which is on by default
@@ -268,7 +307,7 @@ photograph's own file, on your phone — they are never uploaded, and a PNG expo
 
 <section id="pro">
 <div class="wrap">
-<div class="panel">
+<div class="panel reveal">
 <h2>What Pro adds</h2>
 <p class="sub">Three cameras are free forever, at full quality — not weakened versions, but
 three of the 24.</p>
@@ -290,7 +329,7 @@ nothing is hidden behind the price, and nothing is ever deleted.</p>
 </section>
 
 <section>
-<div class="wrap narrow">
+<div class="wrap narrow reveal">
 <h2>Requirements</h2>
 <p>Android 7.0 or newer, and a camera. The camera and the diary work with no connection at all.</p>
 <div class="cta-row" style="align-items:flex-start"><span class="soon">Coming to Google Play</span></div>
@@ -307,9 +346,29 @@ nothing is hidden behind the price, and nothing is ever deleted.</p>
 
 <script>
 (function () {
+  var reduce = window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealed = [].slice.call(document.querySelectorAll('.reveal'));
+
+  function showAll() { revealed.forEach(function (el) { el.classList.add('in'); }); }
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    showAll();
+  } else {
+    var seen = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        seen.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    revealed.forEach(function (el) { seen.observe(el); });
+  }
+
   var chips = [].slice.call(document.querySelectorAll('.chip'));
   var cams = [].slice.call(document.querySelectorAll('.cam'));
   var tally = document.getElementById('tally');
+
   chips.forEach(function (chip) {
     chip.addEventListener('click', function () {
       var want = chip.dataset.filter;
@@ -320,8 +379,21 @@ nothing is hidden behind the price, and nothing is ever deleted.</p>
       cams.forEach(function (cam) {
         var keep = want === 'all' || cam.dataset.cat === want || cam.dataset.tier === want;
         cam.hidden = !keep;
-        if (keep) shown++;
+        if (keep) {
+          // Replay the rise on the cards that survive the filter: a grid that reflows with no
+          // motion at all reads as a page that lost its images rather than one that filtered them.
+          if (!reduce) { cam.classList.remove('in'); }
+          cam.style.setProperty('--i', String(shown % 4));
+          shown++;
+        }
       });
+      if (!reduce) {
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            cams.forEach(function (cam) { if (!cam.hidden) cam.classList.add('in'); });
+          });
+        });
+      }
       tally.textContent = shown === cams.length
         ? cams.length + ' cameras'
         : shown + ' of ' + cams.length;

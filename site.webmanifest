@@ -1,0 +1,22 @@
+{
+  "name": "Moodroll",
+  "short_name": "Moodroll",
+  "description": "Moodroll is a mood journal made of photographs. Your photos, moods and notes stay on your phone: no account, and no server holding your diary.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#100804",
+  "theme_color": "#100804",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
