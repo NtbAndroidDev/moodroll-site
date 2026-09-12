@@ -77,14 +77,14 @@ p { margin: 0 0 1.1rem; max-width: 38rem; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--ink); }
 
-.hero { border-top: 0; padding: 4.5rem 0 3.5rem; text-align: center; }
+.hero { border-top: 0; padding: 4.5rem 0 3.5rem; }
 .eyebrow { font-family: var(--mono); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase;
            color: var(--accent); margin: 0 0 1.1rem; max-width: none; }
-.hero h1 { font-size: clamp(2.15rem, 5.6vw, 3.3rem); line-height: 1.1; letter-spacing: -.025em;
-           margin: 0 auto .9rem; max-width: 17ch; }
-.hero .lede { font-size: 1.13rem; color: var(--muted); max-width: 36rem; margin: 0 auto 1.9rem; }
-.cta-row { display: flex; flex-direction: column; align-items: center; gap: .7rem; margin: 0 0 3.25rem;
-           max-width: none; }
+.hero h1 { font-size: clamp(2.15rem, 5.2vw, 3.4rem); line-height: 1.08; letter-spacing: -.025em;
+           margin: 0 0 1rem; }
+.hero .lede { font-size: 1.13rem; color: var(--muted); max-width: 32rem; margin: 0 0 1.9rem; }
+.cta-row { display: flex; flex-direction: column; align-items: flex-start; gap: .7rem;
+           margin: 0; max-width: none; }
 .cta { display: inline-block; padding: .8rem 1.5rem; border-radius: 999px; background: var(--accent);
        color: var(--ground); font-weight: 650; text-decoration: none; }
 .cta:hover { filter: brightness(1.08); }
@@ -155,6 +155,60 @@ footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3.5rem; color: var
 footer a { color: var(--accent); }
 footer p { margin: 0; max-width: none; }
 
+/* ------------------------------------------------------------------------------- the product
+
+   ⚠️ **The page used to argue for the app without ever showing it.** These three blocks are the
+   answer: the phone, the comparison, and the alternating rows. A bezel is a hairline and a card
+   fill — the ladder tops out at 1.20:1 on this ground, so an object is built by its edge, and a
+   blurred shadow would be the design system's one flat refusal. */
+.split { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; }
+.split .pitch { max-width: 34rem; }
+.device { width: 100%; max-width: 16.5rem; margin: 0 auto; }
+.device .shell { border: 1px solid var(--line); background: var(--card); border-radius: 2.1rem;
+                 padding: .45rem; }
+.device img { display: block; width: 100%; border-radius: 1.75rem; background: var(--raised); }
+.device figcaption { margin: .85rem 0 0; text-align: center; color: var(--muted); font-size: .85rem; }
+
+/* The comparison. `clip-path` on the upper copy, driven by one custom property, so dragging costs
+   no layout — and the control under it is a real range input, which is a slider a keyboard already
+   knows how to move. */
+.compare { position: relative; max-width: 30rem; margin: 0; border: 1px solid var(--line);
+           border-radius: 14px; overflow: hidden; background: var(--raised); --pos: 50%; }
+.compare img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: contain; }
+.compare .over { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.compare .over img { height: 100%; }
+.compare .bar { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 1px;
+                background: var(--ink); opacity: .85; pointer-events: none; }
+.compare .grip { position: absolute; top: 50%; left: var(--pos); width: 2.1rem; height: 2.1rem;
+                 margin: -1.05rem 0 0 -1.05rem; border-radius: 50%; border: 1px solid var(--ink);
+                 background: var(--ground); pointer-events: none;
+                 display: grid; place-items: center; color: var(--ink); font-size: .8rem; }
+.compare input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0;
+                 cursor: ew-resize; -webkit-appearance: none; appearance: none; background: none; }
+.compare input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; opacity: .001; }
+.compare .tag { position: absolute; bottom: .6rem; font-family: var(--mono); font-size: .66rem;
+                letter-spacing: .1em; text-transform: uppercase; padding: .25rem .5rem;
+                border-radius: 4px; background: var(--ground); border: 1px solid var(--line);
+                pointer-events: none; }
+.compare .tag.l { left: .6rem; color: var(--muted); }
+.compare .tag.r { right: .6rem; color: var(--accent); border-color: var(--accent); }
+
+/* A phone is tall and a paragraph is not, so the rows are given a narrower device than the hero:
+   at 16.5rem each row ran 700px and the page read as air with furniture in it. */
+.rowset { display: grid; gap: 2.5rem; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 2.75rem; align-items: center; }
+.row .device { max-width: 13.5rem; }
+.row .copy { max-width: 30rem; }
+.row:nth-child(even) .copy { order: 2; }
+.row h3 { font-size: 1.45rem; margin: 0 0 .6rem; letter-spacing: -.01em; }
+.row p { color: var(--muted); margin: 0; }
+
+@media (max-width: 820px) {
+  .split, .row { grid-template-columns: 1fr; gap: 2rem; }
+  .row:nth-child(even) .copy { order: 0; }
+  .split .pitch { max-width: none; }
+}
+
 /* ------------------------------------------------------------------------------------ motion
    Two moves and no more. A photograph appearing is what this app is about, so the hero month
    develops frame by frame the way a contact sheet comes up in the tray, and everything below it
@@ -206,7 +260,8 @@ footer p { margin: 0; max-width: none; }
 </header>
 
 <section class="hero" id="top">
-<div class="wrap">
+<div class="wrap split">
+<div class="pitch">
 <p class="eyebrow">Photo mood journal · Android</p>
 <h1>A mood journal made of photographs.</h1>
 <p class="lede">Give the day a colour. Shoot it on one of 24 cameras. Weeks later the month is a
@@ -214,37 +269,40 @@ grid you can read without a word of it.</p>
 <div class="cta-row"><span class="soon">Coming to Google Play</span>
 <p class="cta-note">No account, no server, no cloud sync. Nothing you write or shoot leaves your
 phone.</p></div>
-<div class="figure" aria-hidden="true"><i style="--n:0"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:1"></i><i class="shot" style="--n:2"><img src="img/thumbs/gold200.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:3"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:4"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:5"></i><i style="--d:#4F4757;--l:#CCC3CF;--n:6"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:7"></i><i class="shot" style="--n:8"><img src="img/thumbs/portra400.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--n:9"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:10"></i><i style="--d:#6D4155;--l:#EABDCC;--n:11"></i><i class="shot" style="--n:12"><img src="img/thumbs/instax.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:13"></i><i style="--d:#6C382F;--l:#E9B3A7;--n:14"></i><i class="shot" style="--n:15"><img src="img/thumbs/hp5.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:16"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:17"></i><i class="shot" style="--n:18"><img src="img/thumbs/ccd2003.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:19"></i><i style="--n:20"></i><i class="shot" style="--n:21"><img src="img/thumbs/expired.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:22"></i><i class="shot" style="--n:23"><img src="img/thumbs/aerochrome.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:24"></i><i class="shot" style="--n:25"><img src="img/thumbs/slide64.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6D4155;--l:#EABDCC;--n:26"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:27"></i><i class="shot" style="--n:28"><img src="img/thumbs/polaroid600.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i class="shot" style="--n:29"><img src="img/thumbs/camcorder.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--n:30"></i><i style="--n:31"></i><i style="--n:32"></i><i style="--n:33"></i><i style="--n:34"></i></div>
-<p class="caption">One square a day. The empty ones are the point — a gallery cannot draw the days
-you did not write.</p>
+</div>
+<figure class="device"><div class="shell"><img src="img/app/s1-diary.jpg" loading="lazy" decoding="async" alt="The diary: a month of photographs and mood colour"></div></figure>
 </div>
 </section>
 
 <section>
-<div class="wrap narrow reveal">
-<h2>A diary worth reopening</h2>
-<p class="sub">Most mood trackers record a day as an emoji and a line of text, and there is nothing
-to come back to. This one records it as a photograph.</p>
-<p>Give the day one of seven colours, add a note if you want to, and weeks later the timeline is a
-grid of colour — the shape of a month, readable without a word of it. A day can be recorded with no
-photograph at all, and many are.</p>
+<div class="wrap">
+<div class="reveal">
+<h2>A camera, not a filter</h2>
+<p class="sub">Drag the handle. The left is the frame as the camera received it; the right is what
+that camera hands back. Grain, halation, lens softness and vignette are built per shot, at capture
+— not stamped over a picture that was already finished.</p>
 </div>
-</section>
-
-<section>
-<div class="wrap reveal">
-<h2>It never nags</h2>
-<p class="sub">Nothing here is a target, and nothing here is a verdict.</p>
-<ul class="rows">
-<li><b>A streak that cannot go down</b>
-<span>Miss a day and it is forgiven, twice a month. Today never counts against you, because the day
-is not over.</span></li>
-<li><b>One reminder, and it reads the room</b>
-<span>Once a day, and it skips a day you have already recorded. A colour on its own is enough. Turn
-it off and nothing chases you.</span></li>
-<li><b>Insight counts. Only counts.</b>
-<span>No score, no trend warning, and no advice about your own life.</span></li>
-</ul>
+<div class="split reveal">
+<div>
+<div class="compare" id="compare">
+<img id="cmp-after" src="img/cameras/aerochrome.jpg" alt="The same frame after Infra Pink has developed it">
+<div class="over"><img id="cmp-before" src="img/before/aerochrome.jpg" alt="The frame as the camera received it"></div>
+<span class="bar"></span><span class="grip">&#8596;</span>
+<span class="tag l">Untouched</span><span class="tag r" id="cmp-name">Infra Pink</span>
+<input type="range" min="0" max="100" value="50" step="1" id="cmp-range"
+       aria-label="Wipe between the untouched frame and the developed one">
+</div>
+<div class="chips" style="margin-top:1rem"><button class="chip" aria-pressed="true" data-compare="aerochrome">Infra Pink</button><button class="chip" aria-pressed="false" data-compare="hp5">Mono Grit</button><button class="chip" aria-pressed="false" data-compare="polaroid600">Instant Square</button><button class="chip" aria-pressed="false" data-compare="gold200">Gold Hour</button></div>
+</div>
+<div class="pitch">
+<p>This is the whole difference, and it is why the diary is worth reopening. A filter is a layer
+laid on top of a photograph. A camera decides how the light lands in the first place — so the
+softness is in the picture rather than on it, and the same day shot twice on two cameras is two
+different photographs.</p>
+<p class="note">Every frame here is a packaged sample photograph, run through the app's own render
+chain. Nothing on this page was retouched by hand.</p>
+</div>
+</div>
 </div>
 </section>
 
@@ -252,15 +310,72 @@ it off and nothing chases you.</span></li>
 <div class="wrap">
 <div class="reveal">
 <h2>24 cameras, not 24 filters</h2>
-<p class="sub">Every photograph below was made by the camera it sits under, through the same render
-chain that runs on the phone. Each look is built per shot — grain, halation, lens softness,
-vignette — rather than stamped over a finished image.</p>
+<p class="sub">Three are free forever at full quality — not weakened versions, but
+three of the 24. Every photograph below was made by the camera it sits under.</p>
 <div class="chips"><button class="chip" aria-pressed="true" data-filter="all">All</button><button class="chip" aria-pressed="false" data-filter="free">Free</button><button class="chip" aria-pressed="false" data-filter="film">Film</button><button class="chip" aria-pressed="false" data-filter="disposable">Disposable</button><button class="chip" aria-pressed="false" data-filter="compact">Compact</button><button class="chip" aria-pressed="false" data-filter="ccd">CCD</button><button class="chip" aria-pressed="false" data-filter="instant">Instant</button><button class="chip" aria-pressed="false" data-filter="vintage">Vintage</button></div>
 </div>
 <ul class="grid">
 <li class="cam reveal" style="--i:0" data-cat="film" data-tier="free"><img src="img/cameras/gold200.jpg" loading="lazy" decoding="async" alt="A photograph made with Gold Hour"><div class="body"><h3>Gold Hour <span class="tier free">Free</span></h3><p>Warm and nostalgic — made for late afternoon light</p><span class="tags">Film · Bright · ISO 200</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/portra400.jpg" loading="lazy" decoding="async" alt="A photograph made with Soft Portrait"><div class="body"><h3>Soft Portrait <span class="tier pro">Pro</span></h3><p>Soft skin, low contrast, quiet colour</p><span class="tags">Film · True · ISO 400</span></div></li><li class="cam reveal" style="--i:2" data-cat="film" data-tier="pro"><img src="img/cameras/superia400.jpg" loading="lazy" decoding="async" alt="A photograph made with Everyday"><div class="body"><h3>Everyday <span class="tier pro">Pro</span></h3><p>Cool greens, everyday snapshots</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/cinestill800t.jpg" loading="lazy" decoding="async" alt="A photograph made with Tungsten Night"><div class="body"><h3>Tungsten Night <span class="tier pro">Pro</span></h3><p>For warm indoor light — shadows fall teal</p><span class="tags">Film · Dynamic · ISO 800</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/hp5.jpg" loading="lazy" decoding="async" alt="A photograph made with Mono Grit"><div class="body"><h3>Mono Grit <span class="tier pro">Pro</span></h3><p>Black and white, coarse grain, hard contrast</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="disposable" data-tier="pro"><img src="img/cameras/quicksnap.jpg" loading="lazy" decoding="async" alt="A photograph made with One-Shot"><div class="body"><h3>One-Shot <span class="tier pro">Pro</span></h3><p>Single-use camera — heavy vignette, 27 frames</p><span class="tags">Disposable · Bright · ISO 400 · 27 frames</span></div></li><li class="cam reveal" style="--i:2" data-cat="compact" data-tier="free"><img src="img/cameras/pointshoot90s.jpg" loading="lazy" decoding="async" alt="A photograph made with Pocket &#x27;96"><div class="body"><h3>Pocket &#x27;96 <span class="tier free">Free</span></h3><p>90s compact — neutral, slightly cool</p><span class="tags">Compact · Neutral · ISO 400</span></div></li><li class="cam reveal" style="--i:3" data-cat="ccd" data-tier="free"><img src="img/cameras/ccd2003.jpg" loading="lazy" decoding="async" alt="A photograph made with CCD &#x27;03"><div class="body"><h3>CCD &#x27;03 <span class="tier free">Free</span></h3><p>Early-2000s digicam — punchy, saturated, a little harsh</p><span class="tags">CCD · Dynamic · ISO 100 · Small sensor</span></div></li><li class="cam reveal" style="--i:0" data-cat="ccd" data-tier="pro"><img src="img/cameras/camcorder.jpg" loading="lazy" decoding="async" alt="A photograph made with Handycam"><div class="body"><h3>Handycam <span class="tier pro">Pro</span></h3><p>Flat, greenish, old video tape</p><span class="tags">CCD · Faded · ISO 400 · Small sensor</span></div></li><li class="cam reveal" style="--i:1" data-cat="instant" data-tier="pro"><img src="img/cameras/polaroid600.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Square"><div class="body"><h3>Instant Square <span class="tier pro">Pro</span></h3><p>White border, lifted blacks, instant film</p><span class="tags">Instant · Faded · ISO 800</span></div></li><li class="cam reveal" style="--i:2" data-cat="instant" data-tier="pro"><img src="img/cameras/instax.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Mini"><div class="body"><h3>Instant Mini <span class="tier pro">Pro</span></h3><p>Bright, soft, a hint of pink</p><span class="tags">Instant · Softer · ISO 800</span></div></li><li class="cam reveal" style="--i:3" data-cat="vintage" data-tier="pro"><img src="img/cameras/expired.jpg" loading="lazy" decoding="async" alt="A photograph made with Expired Roll"><div class="body"><h3>Expired Roll <span class="tier pro">Pro</span></h3><p>Faded, colour-shifted, light leaks</p><span class="tags">Vintage · Expired · ISO 400</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/aerochrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Infra Pink"><div class="body"><h3>Infra Pink <span class="tier pro">Pro</span></h3><p>Leaves come back pink — for parks, trees, anything green</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/bleachbypass.jpg" loading="lazy" decoding="async" alt="A photograph made with Silver Bleach"><div class="body"><h3>Silver Bleach <span class="tier pro">Pro</span></h3><p>Colour drained, blacks deep — hard light suits it</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam reveal" style="--i:2" data-cat="vintage" data-tier="pro"><img src="img/cameras/crossprocess.jpg" loading="lazy" decoding="async" alt="A photograph made with Cross Lab"><div class="body"><h3>Cross Lab <span class="tier pro">Pro</span></h3><p>Developed in the wrong chemicals — cyan shadows, 36 frames</p><span class="tags">Vintage · Ultra · ISO 400 · 36 frames</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/slide64.jpg" loading="lazy" decoding="async" alt="A photograph made with Slide 64"><div class="body"><h3>Slide 64 <span class="tier pro">Pro</span></h3><p>Dense colour, deep blacks — give it good light</p><span class="tags">Film · Refined · ISO 100</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/pastelfade.jpg" loading="lazy" decoding="async" alt="A photograph made with Pale Wash"><div class="body"><h3>Pale Wash <span class="tier pro">Pro</span></h3><p>Muted and matte — the quiet one</p><span class="tags">Film · Faded · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/taiga.jpg" loading="lazy" decoding="async" alt="A photograph made with Taiga"><div class="body"><h3>Taiga <span class="tier pro">Pro</span></h3><p>Muted colour, blue-green foliage</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam reveal" style="--i:2" data-cat="film" data-tier="pro"><img src="img/cameras/arizona.jpg" loading="lazy" decoding="async" alt="A photograph made with Arizona"><div class="body"><h3>Arizona <span class="tier pro">Pro</span></h3><p>Soft desert warmth, turquoise skies</p><span class="tags">Film · Softer · ISO 400</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/calypso.jpg" loading="lazy" decoding="async" alt="A photograph made with Calypso"><div class="body"><h3>Calypso <span class="tier pro">Pro</span></h3><p>Summer blues and sunlit oranges</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam reveal" style="--i:0" data-cat="film" data-tier="pro"><img src="img/cameras/cine.jpg" loading="lazy" decoding="async" alt="A photograph made with Cine"><div class="body"><h3>Cine <span class="tier pro">Pro</span></h3><p>Orange light against teal shadows</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam reveal" style="--i:1" data-cat="film" data-tier="pro"><img src="img/cameras/apollo.jpg" loading="lazy" decoding="async" alt="A photograph made with Apollo"><div class="body"><h3>Apollo <span class="tier pro">Pro</span></h3><p>Rose reds for the last light</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam reveal" style="--i:2" data-cat="film" data-tier="pro"><img src="img/cameras/vista.jpg" loading="lazy" decoding="async" alt="A photograph made with Vista"><div class="body"><h3>Vista <span class="tier pro">Pro</span></h3><p>Clear greens and open blue skies</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam reveal" style="--i:3" data-cat="film" data-tier="pro"><img src="img/cameras/chrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Chrome"><div class="body"><h3>Chrome <span class="tier pro">Pro</span></h3><p>Dense colour with violet shadows</p><span class="tags">Film · True · ISO 800</span></div></li>
 </ul>
 <p class="tally" id="tally">24 cameras</p>
+</div>
+</section>
+
+<section>
+<div class="wrap rowset">
+<div class="row reveal">
+<div class="copy">
+<h3>Two taps and the day is kept</h3>
+<p>One of seven colours, and how strongly. A note if you want one, a tag if you want one, and a
+photograph only if you feel like taking one. Most days are a colour and nothing else, and the diary
+is built for that rather than in spite of it.</p>
+</div>
+<figure class="device"><div class="shell"><img src="img/app/s4-logmood.jpg" loading="lazy" decoding="async" alt="The mood sheet, mid-answer"></div></figure>
+</div>
+<div class="row reveal">
+<div class="copy">
+<h3>Go back and say more</h3>
+<p>A day holds its photographs, what it felt like, and anything you want to write down. Nothing is
+locked once it is saved — you can come back a week later and add the sentence you could not find at
+the time, or develop the same frame again on another camera.</p>
+</div>
+<figure class="device"><div class="shell"><img src="img/app/s7-day.jpg" loading="lazy" decoding="async" alt="A day: its photograph, its mood, its writing"></div></figure>
+</div>
+<div class="row reveal">
+<div class="copy">
+<h3>It counts. It does not judge.</h3>
+<p>Insight counts your days back to you and stops there — no score, no trend warning, no advice
+about your own life. The streak counts days and never counts down: miss one and it is forgiven,
+twice a month, and today never counts against you because the day is not over.</p>
+</div>
+<figure class="device"><div class="shell"><img src="img/app/s5-insight.jpg" loading="lazy" decoding="async" alt="Insight: the run, the months, the moods counted"></div></figure>
+</div>
+<div class="row reveal">
+<div class="copy">
+<h3>Nothing leaves your phone</h3>
+<p>No account, no server, no cloud sync — and the diary is excluded from Android's automatic Google
+Drive backup, which is on by default for most apps. There is no usage analytics in the app at all.
+Crash reports go to Google Firebase so bugs can be fixed on phones we cannot hold; they never carry
+a photograph, a note, or which mood you tagged.</p>
+<p class="note"><a href="privacy/">The privacy policy</a> writes all of it out in plain language.
+Location tagging is off by default, and its coordinates are never uploaded.
+<strong>No ads. Not now, not later.</strong></p>
+</div>
+<figure class="device"><div class="shell"><img src="img/app/s6-settings.jpg" loading="lazy" decoding="async" alt="Settings: the privacy line"></div></figure>
+</div>
+</div>
+</section>
+
+<section>
+<div class="wrap split reveal">
+<div class="pitch">
+<h2>The shape of a month</h2>
+<p>Most mood trackers record a day as an emoji and a line of text, and there is nothing to come back
+to. Give the day a colour instead and weeks later the timeline is a grid of colour — the shape of a
+month, readable without a word of it.</p>
+<p class="note">The empty squares are the point. A gallery cannot draw the days you did not write.</p>
+</div>
+<div><div class="figure" aria-hidden="true"><i style="--n:0"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:1"></i><i class="shot" style="--n:2"><img src="img/thumbs/gold200.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:3"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:4"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:5"></i><i style="--d:#4F4757;--l:#CCC3CF;--n:6"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:7"></i><i class="shot" style="--n:8"><img src="img/thumbs/portra400.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--n:9"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:10"></i><i style="--d:#6D4155;--l:#EABDCC;--n:11"></i><i class="shot" style="--n:12"><img src="img/thumbs/instax.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:13"></i><i style="--d:#6C382F;--l:#E9B3A7;--n:14"></i><i class="shot" style="--n:15"><img src="img/thumbs/hp5.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:16"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:17"></i><i class="shot" style="--n:18"><img src="img/thumbs/ccd2003.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:19"></i><i style="--n:20"></i><i class="shot" style="--n:21"><img src="img/thumbs/expired.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA;--n:22"></i><i class="shot" style="--n:23"><img src="img/thumbs/aerochrome.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6F5B25;--l:#ECD79C;--n:24"></i><i class="shot" style="--n:25"><img src="img/thumbs/slide64.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6D4155;--l:#EABDCC;--n:26"></i><i style="--d:#3E6351;--l:#BBDEC9;--n:27"></i><i class="shot" style="--n:28"><img src="img/thumbs/polaroid600.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i class="shot" style="--n:29"><img src="img/thumbs/camcorder.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--n:30"></i><i style="--n:31"></i><i style="--n:32"></i><i style="--n:33"></i><i style="--n:34"></i></div></div>
 </div>
 </section>
 
@@ -287,30 +402,11 @@ notification shade.</p>
 </div>
 </section>
 
-<section>
-<div class="wrap narrow reveal">
-<h2>Your diary stays on your phone</h2>
-<p>Your photos, moods and notes never leave this phone. There is no account, no server, and no cloud
-sync — and the diary is excluded from Android's automatic Google Drive backup, which is on by default
-for most apps.</p>
-<p><b>Moodroll does not measure how you use it.</b> There is no usage analytics in the app at all —
-not which screens you open, not which cameras you use, not whether you bought anything. Crash reports
-do go to Google Firebase, so that bugs can be found and fixed on phones we cannot hold; they never
-contain a photograph, a note, or which mood you tagged. No advertising identifier is collected.</p>
-<p>Location tagging is off by default. Switch it on and the coordinates are written into the
-photograph's own file, on your phone — they are never uploaded, and a PNG export carries none.</p>
-<p>All of it is written out in full, in plain language, in the
-<a href="privacy/">privacy policy</a>.</p>
-<p><strong>No ads. Not now, not later.</strong></p>
-</div>
-</section>
-
 <section id="pro">
 <div class="wrap">
 <div class="panel reveal">
 <h2>What Pro adds</h2>
-<p class="sub">Three cameras are free forever, at full quality — not weakened versions, but
-three of the 24.</p>
+<p class="sub">21 more cameras, and the things you build with them.</p>
 <ul class="pro">
 <li>All 24 cameras.</li>
 <li><b>Build your own camera.</b> Pick the film, the grain, the lens, the border, and how many frames
@@ -365,7 +461,34 @@ nothing is hidden behind the price, and nothing is ever deleted.</p>
     revealed.forEach(function (el) { seen.observe(el); });
   }
 
-  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  // The comparison. One custom property drives the clip, so a drag costs no layout, and the
+  // control is a real range input — which a keyboard already knows how to move.
+  var compare = document.getElementById('compare');
+  if (compare) {
+    var range = document.getElementById('cmp-range');
+    var before = document.getElementById('cmp-before');
+    var after = document.getElementById('cmp-after');
+    var name = document.getElementById('cmp-name');
+    var wipe = function () { compare.style.setProperty('--pos', range.value + '%'); };
+    range.addEventListener('input', wipe);
+    wipe();
+
+    var picks = [].slice.call(document.querySelectorAll('[data-compare]'));
+    picks.forEach(function (pick) {
+      pick.addEventListener('click', function () {
+        var id = pick.dataset.compare;
+        picks.forEach(function (other) {
+          other.setAttribute('aria-pressed', String(other === pick));
+        });
+        before.src = 'img/before/' + id + '.jpg';
+        after.src = 'img/cameras/' + id + '.jpg';
+        after.alt = 'The same frame after ' + pick.textContent + ' has developed it';
+        name.textContent = pick.textContent;
+      });
+    });
+  }
+
+  var chips = [].slice.call(document.querySelectorAll('.chip:not([data-compare])'));
   var cams = [].slice.call(document.querySelectorAll('.cam'));
   var tally = document.getElementById('tally');
 
