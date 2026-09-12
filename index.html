@@ -27,6 +27,10 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+/* Both pages carry photographs now, and a grid track is `1fr`, whose automatic minimum is its own
+   content — so an image is the one thing on either page able to push a section wider than the phone
+   holding it. Belt and braces with the `min-width: 0` on the grid items. */
+img { max-width: 100%; }
 body {
   margin: 0; background: var(--ground); color: var(--ink);
   font-family: var(--sans); font-size: 17px; line-height: 1.62;
@@ -44,114 +48,208 @@ code {
   border: 1px solid var(--line); border-radius: 4px; padding: .08em .34em;
 }
 
-main { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 5rem; }
-section { padding: 3rem 0; border-top: 1px solid var(--line); }
-section:first-of-type { border-top: 0; }
-h2 { font-size: 1.6rem; margin: 0 0 1rem; }
-p { margin: 0 0 1.1rem; max-width: 34rem; }
-.lede { font-size: 1.12rem; }
-.hero { padding: 4rem 0 2.5rem; text-align: center; }
-.hero img { width: 92px; height: 92px; border-radius: 21px; display: block; margin: 0 auto 1.25rem; }
-.hero h1 { font-size: 2.7rem; margin: 0 0 .6rem; letter-spacing: -.015em; }
-.hero .tagline { font-size: 1.22rem; color: var(--ink); margin: 0 auto .5rem; max-width: 30rem; }
-.hero .sub { color: var(--muted); margin: 0 auto; max-width: 30rem; font-size: 1rem; }
-.figure { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
-          max-width: 21rem; margin: 2.75rem auto 1rem; }
-.figure i { display: block; aspect-ratio: 1; border-radius: 8px;
-             background: var(--d, var(--raised)); }
+main { max-width: none; margin: 0; padding: 0; }
+.wrap { max-width: 64rem; margin: 0 auto; padding: 0 1.25rem; }
+/* ⚠️ Not a narrower centred column: every section starts on the same left edge, and what keeps a
+   prose section readable is the measure on `p`, not a second wrapper centred inside the first. */
+.wrap.narrow > * { max-width: 38rem; }
+section { padding: 4.5rem 0; border-top: 1px solid var(--line); }
+h2 { font-size: clamp(1.55rem, 3.4vw, 2.1rem); margin: 0 0 .8rem; letter-spacing: -.012em; }
+p { margin: 0 0 1.1rem; max-width: 38rem; }
+.sub { color: var(--muted); font-size: 1.05rem; margin-bottom: 2.25rem; }
+.note { color: var(--muted); font-size: .92rem; }
+
+/* The bar is the one element that sits over the page, so it takes the ground rather than a blur:
+   a translucent bar over a true-black ground is a grey bar, and the ladder has no room for one. */
+.top { position: sticky; top: 0; z-index: 10; background: var(--ground);
+       border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 1rem; height: 3.5rem; }
+.mark { display: flex; align-items: center; gap: .55rem; color: var(--ink); text-decoration: none;
+        font-family: var(--serif); font-size: 1.06rem; font-weight: 600; letter-spacing: -.01em; }
+.mark img { width: 26px; height: 26px; border-radius: 7px; display: block; }
+.top nav { margin-left: auto; display: flex; gap: 1.35rem; font-size: .92rem; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--ink); }
+
+.hero { border-top: 0; padding: 4.5rem 0 3.5rem; text-align: center; }
+.eyebrow { font-family: var(--mono); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase;
+           color: var(--accent); margin: 0 0 1.1rem; max-width: none; }
+.hero h1 { font-size: clamp(2.15rem, 5.6vw, 3.3rem); line-height: 1.1; letter-spacing: -.025em;
+           margin: 0 auto .9rem; max-width: 17ch; }
+.hero .lede { font-size: 1.13rem; color: var(--muted); max-width: 36rem; margin: 0 auto 1.9rem; }
+.cta-row { display: flex; flex-direction: column; align-items: center; gap: .7rem; margin: 0 0 3.25rem;
+           max-width: none; }
+.cta { display: inline-block; padding: .8rem 1.5rem; border-radius: 999px; background: var(--accent);
+       color: var(--ground); font-weight: 650; text-decoration: none; }
+.cta:hover { filter: brightness(1.08); }
+.soon { display: inline-block; padding: .78rem 1.45rem; border-radius: 999px; background: var(--card);
+        border: 1px solid var(--line); color: var(--ink); font-weight: 600; }
+.cta-note { color: var(--muted); font-size: .9rem; margin: 0; max-width: 32rem; }
+
+.figure { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px;
+          max-width: 33rem; margin: 0 auto 1.1rem; }
+.figure i { display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; min-width: 0;
+            background: var(--d, var(--raised)); }
 @media (prefers-color-scheme: light) { .figure i { background: var(--l, var(--raised)); } }
-.caption { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 auto; max-width: 26rem; }
-.points { list-style: none; padding: 0; margin: 0; }
-.points li { margin-bottom: 1.1rem; max-width: 34rem; }
-.points b { display: block; }
-.points span { color: var(--muted); }
-.rolls { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-         gap: .85rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
-.rolls li { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
-            padding: .85rem 1rem; }
-.rolls b { display: block; font-family: var(--serif); font-size: 1.05rem; }
-.rolls span { color: var(--muted); font-size: .9rem; }
-.tier { color: var(--muted); font-size: .82rem; letter-spacing: .04em; text-transform: uppercase;
-        margin: 2rem 0 0; font-weight: 600; }
-.pro { list-style: none; padding: 0; margin: 0; }
-.pro li { margin-bottom: .7rem; max-width: 34rem; padding-left: 1.35rem; position: relative; }
-.pro li::before { content: "—"; position: absolute; left: 0; color: var(--muted); }
-.note { color: var(--muted); font-size: .93rem; }
-.cta { display: inline-block; margin-top: .5rem; padding: .7rem 1.15rem; border-radius: 8px;
-       border: 1px solid var(--line); background: var(--card); color: var(--ink);
-       text-decoration: none; font-weight: 600; }
-.cta:hover { border-color: var(--accent); }
-.soon { display: inline-block; margin-top: .5rem; color: var(--muted); font-size: .95rem; }
-footer { border-top: 1px solid var(--line); padding: 2rem 0 0; color: var(--muted); font-size: .9rem; }
+.figure i.shot { background: var(--raised); }
+.figure img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.caption { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 auto; max-width: 30rem; }
+
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.9rem; padding: 0; }
+.chip { font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase;
+        padding: .46rem .85rem; border-radius: 999px; border: 1px solid var(--line);
+        background: var(--card); color: var(--muted); cursor: pointer; }
+.chip:hover { color: var(--ink); border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--ground); }
+
+.grid { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.1rem;
+        grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); }
+/* Column, so a short character line and a long one still put their tag row on the same baseline —
+   a grid of cards whose feet do not line up reads as a grid that was not laid out. */
+.cam { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+       display: flex; flex-direction: column; min-width: 0; }
+.cam[hidden] { display: none; }
+/* `contain`, not `cover`: two of these cameras deliver the photograph on a card, and a box that
+   crops to fill would cut off the one thing they sell. */
+.cam img { width: 100%; display: block; aspect-ratio: 4 / 5; object-fit: contain;
+           background: var(--raised); }
+.cam .body { padding: .85rem .95rem 1rem; display: flex; flex-direction: column; flex: 1; }
+.cam h3 { font-size: 1.05rem; margin: 0; display: flex; align-items: baseline; gap: .5rem;
+          flex-wrap: wrap; }
+.tier { font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+        padding: .16rem .42rem; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); }
+.tier.free { color: var(--accent); border-color: var(--accent); }
+.cam p { color: var(--muted); font-size: .9rem; margin: .5rem 0 .75rem; max-width: none; }
+.cam .tags { font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; color: var(--muted);
+             text-transform: uppercase; display: block; margin-top: auto; }
+.tally { font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+         color: var(--muted); margin: 1.6rem 0 0; }
+
+.rows { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); }
+.rows.pair { grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr)); }
+.rows li { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+           padding: 1.15rem 1.25rem; min-width: 0; }
+.rows b { display: block; font-family: var(--serif); font-size: 1.08rem; margin-bottom: .4rem; }
+.rows span { color: var(--muted); font-size: .93rem; }
+
+/* Capped, because every line inside it is measured to 38rem and a panel twice that wide is a box
+   with a hole in its right half. */
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+         padding: 2.1rem 1.8rem; max-width: 46rem; }
+.panel h2 { margin-top: 0; }
+.pro { list-style: none; padding: 0; margin: 0 0 1.4rem; }
+.pro li { margin-bottom: .8rem; max-width: 38rem; padding-left: 1.5rem; position: relative; }
+.pro li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+
+footer { border-top: 1px solid var(--line); padding: 2.5rem 0 3.5rem; color: var(--muted);
+         font-size: .9rem; }
+.foot { display: flex; flex-wrap: wrap; gap: .9rem 2rem; align-items: baseline; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-left: auto; }
 footer a { color: var(--accent); }
-footer p { margin: 0 0 .5rem; }
-@media (max-width: 480px) {
+footer p { margin: 0; max-width: none; }
+
+@media (max-width: 560px) {
   body { font-size: 16px; }
-  .hero { padding: 3rem 0 2rem; }
-  .hero h1 { font-size: 2.15rem; }
-  .hero .tagline { font-size: 1.1rem; }
+  section { padding: 3.25rem 0; }
+  .hero { padding: 3rem 0 2.5rem; }
+  .top nav { gap: 1rem; font-size: .86rem; }
+  .grid { grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: .8rem; }
+  .figure { gap: 5px; }
+  .panel { padding: 1.5rem 1.15rem; }
 }</style>
 </head>
 <body>
 <main>
-<header class="hero">
-<img src="icon.png" width="92" height="92" alt="The Moodroll icon">
-<h1>Moodroll</h1>
-<p class="tagline">A mood journal made of photographs.</p>
-<p class="sub">Nothing you write or shoot leaves your phone.</p>
-<div class="figure" aria-hidden="true"><i></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#4F4757;--l:#CCC3CF"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#6D4155;--l:#EABDCC"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6C382F;--l:#E9B3A7"></i><i style="--d:#4F4757;--l:#CCC3CF"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i></i><i style="--d:#3A4562;--l:#B7C1D9"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#6D4155;--l:#EABDCC"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i></i><i></i><i></i><i></i><i></i></div>
-<p class="caption">A month, one colour a day. The empty squares are the point — a gallery cannot
-draw the days you did not write.</p>
+<header class="top">
+<div class="wrap">
+<a class="mark" href="#top"><img src="icon.png" width="26" height="26" alt="">Moodroll</a>
+<nav><a href="#cameras">Cameras</a><a href="#pro">Pro</a><a href="privacy/">Privacy</a></nav>
+</div>
 </header>
 
+<section class="hero" id="top">
+<div class="wrap">
+<p class="eyebrow">Photo mood journal · Android</p>
+<h1>A mood journal made of photographs.</h1>
+<p class="lede">Give the day a colour. Shoot it on one of 24 cameras. Weeks later the month is a
+grid you can read without a word of it.</p>
+<div class="cta-row"><span class="soon">Coming to Google Play</span>
+<p class="cta-note">No account, no server, no cloud sync. Nothing you write or shoot leaves your
+phone.</p></div>
+<div class="figure" aria-hidden="true"><i></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i class="shot"><img src="img/thumbs/gold200.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#4F4757;--l:#CCC3CF"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i class="shot"><img src="img/thumbs/portra400.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i style="--d:#6D4155;--l:#EABDCC"></i><i class="shot"><img src="img/thumbs/instax.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i style="--d:#6C382F;--l:#E9B3A7"></i><i class="shot"><img src="img/thumbs/hp5.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i class="shot"><img src="img/thumbs/ccd2003.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i></i><i class="shot"><img src="img/thumbs/expired.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#4D4F52;--l:#CACBCA"></i><i class="shot"><img src="img/thumbs/aerochrome.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6F5B25;--l:#ECD79C"></i><i class="shot"><img src="img/thumbs/slide64.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i style="--d:#6D4155;--l:#EABDCC"></i><i style="--d:#3E6351;--l:#BBDEC9"></i><i class="shot"><img src="img/thumbs/polaroid600.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i class="shot"><img src="img/thumbs/camcorder.jpg" width="200" height="200" alt="" loading="eager" decoding="async"></i><i></i><i></i><i></i><i></i><i></i></div>
+<p class="caption">One square a day. The empty ones are the point — a gallery cannot draw the days
+you did not write.</p>
+</div>
+</section>
+
 <section>
+<div class="wrap narrow">
 <h2>A diary worth reopening</h2>
-<p class="lede">Most mood trackers record a day as an emoji and a line of text, and there is nothing
+<p class="sub">Most mood trackers record a day as an emoji and a line of text, and there is nothing
 to come back to. This one records it as a photograph.</p>
 <p>Give the day one of seven colours, add a note if you want to, and weeks later the timeline is a
 grid of colour — the shape of a month, readable without a word of it. A day can be recorded with no
 photograph at all, and many are.</p>
+</div>
 </section>
 
 <section>
+<div class="wrap">
 <h2>It never nags</h2>
-<ul class="points">
-<li><b>The streak counts days and never counts down.</b>
-<span>Miss one and it is forgiven, twice a month. Today never counts against you, because the day is
-not over.</span></li>
-<li><b>One reminder, once a day, and it skips a day you have already recorded.</b>
-<span>A colour on its own is enough — no photograph required. Turn it off and nothing chases you.</span></li>
-<li><b>Insight counts your days back to you. Counts, only.</b>
+<p class="sub">Nothing here is a target, and nothing here is a verdict.</p>
+<ul class="rows">
+<li><b>A streak that cannot go down</b>
+<span>Miss a day and it is forgiven, twice a month. Today never counts against you, because the day
+is not over.</span></li>
+<li><b>One reminder, and it reads the room</b>
+<span>Once a day, and it skips a day you have already recorded. A colour on its own is enough. Turn
+it off and nothing chases you.</span></li>
+<li><b>Insight counts. Only counts.</b>
 <span>No score, no trend warning, and no advice about your own life.</span></li>
 </ul>
+</div>
+</section>
+
+<section id="cameras">
+<div class="wrap">
+<h2>24 cameras, not 24 filters</h2>
+<p class="sub">Every photograph below was made by the camera it sits under, through the same render
+chain that runs on the phone. Each look is built per shot — grain, halation, lens softness,
+vignette — rather than stamped over a finished image.</p>
+<div class="chips"><button class="chip" aria-pressed="true" data-filter="all">All</button><button class="chip" aria-pressed="false" data-filter="free">Free</button><button class="chip" aria-pressed="false" data-filter="film">Film</button><button class="chip" aria-pressed="false" data-filter="disposable">Disposable</button><button class="chip" aria-pressed="false" data-filter="compact">Compact</button><button class="chip" aria-pressed="false" data-filter="ccd">CCD</button><button class="chip" aria-pressed="false" data-filter="instant">Instant</button><button class="chip" aria-pressed="false" data-filter="vintage">Vintage</button></div>
+<ul class="grid">
+<li class="cam" data-cat="film" data-tier="free"><img src="img/cameras/gold200.jpg" loading="lazy" decoding="async" alt="A photograph made with Gold Hour"><div class="body"><h3>Gold Hour <span class="tier free">Free</span></h3><p>Warm and nostalgic — made for late afternoon light</p><span class="tags">Film · Bright · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/portra400.jpg" loading="lazy" decoding="async" alt="A photograph made with Soft Portrait"><div class="body"><h3>Soft Portrait <span class="tier pro">Pro</span></h3><p>Soft skin, low contrast, quiet colour</p><span class="tags">Film · True · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/superia400.jpg" loading="lazy" decoding="async" alt="A photograph made with Everyday"><div class="body"><h3>Everyday <span class="tier pro">Pro</span></h3><p>Cool greens, everyday snapshots</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/cinestill800t.jpg" loading="lazy" decoding="async" alt="A photograph made with Tungsten Night"><div class="body"><h3>Tungsten Night <span class="tier pro">Pro</span></h3><p>For warm indoor light — shadows fall teal</p><span class="tags">Film · Dynamic · ISO 800</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/hp5.jpg" loading="lazy" decoding="async" alt="A photograph made with Mono Grit"><div class="body"><h3>Mono Grit <span class="tier pro">Pro</span></h3><p>Black and white, coarse grain, hard contrast</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam" data-cat="disposable" data-tier="pro"><img src="img/cameras/quicksnap.jpg" loading="lazy" decoding="async" alt="A photograph made with One-Shot"><div class="body"><h3>One-Shot <span class="tier pro">Pro</span></h3><p>Single-use camera — heavy vignette, 27 frames</p><span class="tags">Disposable · Bright · ISO 400 · 27 frames</span></div></li><li class="cam" data-cat="compact" data-tier="free"><img src="img/cameras/pointshoot90s.jpg" loading="lazy" decoding="async" alt="A photograph made with Pocket &#x27;96"><div class="body"><h3>Pocket &#x27;96 <span class="tier free">Free</span></h3><p>90s compact — neutral, slightly cool</p><span class="tags">Compact · Neutral · ISO 400</span></div></li><li class="cam" data-cat="ccd" data-tier="free"><img src="img/cameras/ccd2003.jpg" loading="lazy" decoding="async" alt="A photograph made with CCD &#x27;03"><div class="body"><h3>CCD &#x27;03 <span class="tier free">Free</span></h3><p>Early-2000s digicam — punchy, saturated, a little harsh</p><span class="tags">CCD · Dynamic · ISO 100 · Small sensor</span></div></li><li class="cam" data-cat="ccd" data-tier="pro"><img src="img/cameras/camcorder.jpg" loading="lazy" decoding="async" alt="A photograph made with Handycam"><div class="body"><h3>Handycam <span class="tier pro">Pro</span></h3><p>Flat, greenish, old video tape</p><span class="tags">CCD · Faded · ISO 400 · Small sensor</span></div></li><li class="cam" data-cat="instant" data-tier="pro"><img src="img/cameras/polaroid600.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Square"><div class="body"><h3>Instant Square <span class="tier pro">Pro</span></h3><p>White border, lifted blacks, instant film</p><span class="tags">Instant · Faded · ISO 800</span></div></li><li class="cam" data-cat="instant" data-tier="pro"><img src="img/cameras/instax.jpg" loading="lazy" decoding="async" alt="A photograph made with Instant Mini"><div class="body"><h3>Instant Mini <span class="tier pro">Pro</span></h3><p>Bright, soft, a hint of pink</p><span class="tags">Instant · Softer · ISO 800</span></div></li><li class="cam" data-cat="vintage" data-tier="pro"><img src="img/cameras/expired.jpg" loading="lazy" decoding="async" alt="A photograph made with Expired Roll"><div class="body"><h3>Expired Roll <span class="tier pro">Pro</span></h3><p>Faded, colour-shifted, light leaks</p><span class="tags">Vintage · Expired · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/aerochrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Infra Pink"><div class="body"><h3>Infra Pink <span class="tier pro">Pro</span></h3><p>Leaves come back pink — for parks, trees, anything green</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/bleachbypass.jpg" loading="lazy" decoding="async" alt="A photograph made with Silver Bleach"><div class="body"><h3>Silver Bleach <span class="tier pro">Pro</span></h3><p>Colour drained, blacks deep — hard light suits it</p><span class="tags">Film · Crush · ISO 400</span></div></li><li class="cam" data-cat="vintage" data-tier="pro"><img src="img/cameras/crossprocess.jpg" loading="lazy" decoding="async" alt="A photograph made with Cross Lab"><div class="body"><h3>Cross Lab <span class="tier pro">Pro</span></h3><p>Developed in the wrong chemicals — cyan shadows, 36 frames</p><span class="tags">Vintage · Ultra · ISO 400 · 36 frames</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/slide64.jpg" loading="lazy" decoding="async" alt="A photograph made with Slide 64"><div class="body"><h3>Slide 64 <span class="tier pro">Pro</span></h3><p>Dense colour, deep blacks — give it good light</p><span class="tags">Film · Refined · ISO 100</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/pastelfade.jpg" loading="lazy" decoding="async" alt="A photograph made with Pale Wash"><div class="body"><h3>Pale Wash <span class="tier pro">Pro</span></h3><p>Muted and matte — the quiet one</p><span class="tags">Film · Faded · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/taiga.jpg" loading="lazy" decoding="async" alt="A photograph made with Taiga"><div class="body"><h3>Taiga <span class="tier pro">Pro</span></h3><p>Muted colour, blue-green foliage</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/arizona.jpg" loading="lazy" decoding="async" alt="A photograph made with Arizona"><div class="body"><h3>Arizona <span class="tier pro">Pro</span></h3><p>Soft desert warmth, turquoise skies</p><span class="tags">Film · Softer · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/calypso.jpg" loading="lazy" decoding="async" alt="A photograph made with Calypso"><div class="body"><h3>Calypso <span class="tier pro">Pro</span></h3><p>Summer blues and sunlit oranges</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/cine.jpg" loading="lazy" decoding="async" alt="A photograph made with Cine"><div class="body"><h3>Cine <span class="tier pro">Pro</span></h3><p>Orange light against teal shadows</p><span class="tags">Film · Ultra · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/apollo.jpg" loading="lazy" decoding="async" alt="A photograph made with Apollo"><div class="body"><h3>Apollo <span class="tier pro">Pro</span></h3><p>Rose reds for the last light</p><span class="tags">Film · Neutral · ISO 400</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/vista.jpg" loading="lazy" decoding="async" alt="A photograph made with Vista"><div class="body"><h3>Vista <span class="tier pro">Pro</span></h3><p>Clear greens and open blue skies</p><span class="tags">Film · Neutral · ISO 200</span></div></li><li class="cam" data-cat="film" data-tier="pro"><img src="img/cameras/chrome.jpg" loading="lazy" decoding="async" alt="A photograph made with Chrome"><div class="body"><h3>Chrome <span class="tier pro">Pro</span></h3><p>Dense colour with violet shadows</p><span class="tags">Film · True · ISO 800</span></div></li>
+</ul>
+<p class="tally" id="tally">24 cameras</p>
+</div>
 </section>
 
 <section>
-<h2>24 cameras, not 24 filters</h2>
-<p>This is where the photographs come from, and it is why the diary is worth reopening. Each look is
-rendered per shot — grain, halation, lens softness, vignette — rather than stamped over a finished
-image.</p>
-<p>Several of them behave like the real thing, too. The single-use camera gives you 27 frames before
-you load a new roll. The instant cameras print inside a white border. The early digicam shoots at its
-own small sensor size, so the softness is in the picture instead of on it.</p>
-<p>The shutter has three settings and no menu behind them. <b>Auto</b> takes one frame and sets
-the lens itself. <b>Portrait</b> hands you the aperture ring. <b>Double exposure</b> lays two frames
-on one negative, with seven ways for the two to meet.</p>
-<p>The border is yours as well. Keep the one the camera prints, or put every photograph inside a
-square instant, a mini instant or a 35&nbsp;mm film strip — the viewfinder reframes to match, so what
-you compose is what the print keeps.</p>
-<p>A camera can be sent to somebody else as a short code or a small file — including one you
-built yourself. <b>Opening one costs nothing and needs no subscription</b>, on any tier.</p>
+<div class="wrap">
+<h2>The camera behaves like a camera</h2>
+<p class="sub">Three settings under the shutter and no menu behind them.</p>
+<ul class="rows pair">
+<li><b>Auto · Portrait · Double exposure</b>
+<span>One frame with the lens set for you, one frame with the aperture ring in your hand, or two
+frames on one negative with seven ways for the two to meet.</span></li>
+<li><b>The border is part of the picture</b>
+<span>Keep the one the camera prints, or put every photograph inside a square instant, a mini
+instant or a 35&nbsp;mm film strip. The viewfinder reframes to match.</span></li>
+<li><b>Rolls that run out</b>
+<span>The single-use camera gives you 27 frames before you load a new one. The early digicam shoots
+at its own small sensor size, so the softness is in the picture instead of on it.</span></li>
+<li><b>Hand a camera to somebody</b>
+<span>Send any of them as a short code or a small file, including one you built yourself. Opening
+one costs nothing and needs no subscription, on any tier.</span></li>
+</ul>
 <p class="note">The camera is a Quick Settings tile too, so the viewfinder is one tap from the
 notification shade.</p>
-<p class="tier">Three free forever, at full quality</p>
-<p class="note">Not weakened versions — three of the 24.</p>
-<ul class="rolls"><li><b>Gold Hour</b><span>Warm and nostalgic — made for late afternoon light</span></li><li><b>Pocket &#x27;96</b><span>90s compact — neutral, slightly cool</span></li><li><b>CCD &#x27;03</b><span>Early-2000s digicam — punchy, saturated, a little harsh</span></li></ul>
-<p class="tier">21 more with Pro</p>
-<ul class="rolls"><li><b>Soft Portrait</b><span>Soft skin, low contrast, quiet colour</span></li><li><b>Everyday</b><span>Cool greens, everyday snapshots</span></li><li><b>Tungsten Night</b><span>For warm indoor light — shadows fall teal</span></li><li><b>Mono Grit</b><span>Black and white, coarse grain, hard contrast</span></li><li><b>One-Shot</b><span>Single-use camera — heavy vignette, 27 frames</span></li><li><b>Handycam</b><span>Flat, greenish, old video tape</span></li><li><b>Instant Square</b><span>White border, lifted blacks, instant film</span></li><li><b>Instant Mini</b><span>Bright, soft, a hint of pink</span></li><li><b>Expired Roll</b><span>Faded, colour-shifted, light leaks</span></li><li><b>Infra Pink</b><span>Leaves come back pink — for parks, trees, anything green</span></li><li><b>Silver Bleach</b><span>Colour drained, blacks deep — hard light suits it</span></li><li><b>Cross Lab</b><span>Developed in the wrong chemicals — cyan shadows, 36 frames</span></li><li><b>Slide 64</b><span>Dense colour, deep blacks — give it good light</span></li><li><b>Pale Wash</b><span>Muted and matte — the quiet one</span></li><li><b>Taiga</b><span>Muted colour, blue-green foliage</span></li><li><b>Arizona</b><span>Soft desert warmth, turquoise skies</span></li><li><b>Calypso</b><span>Summer blues and sunlit oranges</span></li><li><b>Cine</b><span>Orange light against teal shadows</span></li><li><b>Apollo</b><span>Rose reds for the last light</span></li><li><b>Vista</b><span>Clear greens and open blue skies</span></li><li><b>Chrome</b><span>Dense colour with violet shadows</span></li></ul>
+</div>
 </section>
 
 <section>
+<div class="wrap narrow">
 <h2>Your diary stays on your phone</h2>
 <p>Your photos, moods and notes never leave this phone. There is no account, no server, and no cloud
 sync — and the diary is excluded from Android's automatic Google Drive backup, which is on by default
@@ -165,10 +263,15 @@ photograph's own file, on your phone — they are never uploaded, and a PNG expo
 <p>All of it is written out in full, in plain language, in the
 <a href="privacy/">privacy policy</a>.</p>
 <p><strong>No ads. Not now, not later.</strong></p>
+</div>
 </section>
 
-<section>
+<section id="pro">
+<div class="wrap">
+<div class="panel">
 <h2>What Pro adds</h2>
+<p class="sub">Three cameras are free forever, at full quality — not weakened versions, but
+three of the 24.</p>
 <ul class="pro">
 <li>All 24 cameras.</li>
 <li><b>Build your own camera.</b> Pick the film, the grain, the lens, the border, and how many frames
@@ -182,18 +285,50 @@ camera that took it.</li>
 any free trial you are eligible for, are shown in the app.</p>
 <p class="note">The free tier keeps your whole diary. Every day you record stays, and stays visible —
 nothing is hidden behind the price, and nothing is ever deleted.</p>
+</div>
+</div>
 </section>
 
 <section>
+<div class="wrap narrow">
 <h2>Requirements</h2>
 <p>Android 7.0 or newer, and a camera. The camera and the diary work with no connection at all.</p>
-<span class="soon">Coming to Google Play.</span>
+<div class="cta-row" style="align-items:flex-start"><span class="soon">Coming to Google Play</span></div>
+</div>
 </section>
 
 <footer>
-<p><a href="privacy/">Privacy policy</a> · <a href="mailto:thanhbinhntn2018@gmail.com">thanhbinhntn2018@gmail.com</a></p>
+<div class="wrap foot">
 <p>Moodroll · <code>com.ntb.moodroll.app</code></p>
+<nav><a href="#cameras">Cameras</a><a href="#pro">Pro</a><a href="privacy/">Privacy policy</a>
+<a href="mailto:thanhbinhntn2018@gmail.com">thanhbinhntn2018@gmail.com</a></nav>
+</div>
 </footer>
+
+<script>
+(function () {
+  var chips = [].slice.call(document.querySelectorAll('.chip'));
+  var cams = [].slice.call(document.querySelectorAll('.cam'));
+  var tally = document.getElementById('tally');
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var want = chip.dataset.filter;
+      chips.forEach(function (other) {
+        other.setAttribute('aria-pressed', String(other === chip));
+      });
+      var shown = 0;
+      cams.forEach(function (cam) {
+        var keep = want === 'all' || cam.dataset.cat === want || cam.dataset.tier === want;
+        cam.hidden = !keep;
+        if (keep) shown++;
+      });
+      tally.textContent = shown === cams.length
+        ? cams.length + ' cameras'
+        : shown + ' of ' + cams.length;
+    });
+  });
+})();
+</script>
 
 </main>
 </body>

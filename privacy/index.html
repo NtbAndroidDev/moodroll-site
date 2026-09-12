@@ -27,6 +27,10 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
+/* Both pages carry photographs now, and a grid track is `1fr`, whose automatic minimum is its own
+   content — so an image is the one thing on either page able to push a section wider than the phone
+   holding it. Belt and braces with the `min-width: 0` on the grid items. */
+img { max-width: 100%; }
 body {
   margin: 0; background: var(--ground); color: var(--ink);
   font-family: var(--sans); font-size: 17px; line-height: 1.62;
