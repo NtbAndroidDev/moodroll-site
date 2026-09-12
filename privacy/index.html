@@ -86,19 +86,21 @@ footer { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--l
 
 <p><strong>Nothing from your diary.</strong> There is no account, no sign-in and no server that holds it. We cannot see your photos, your moods or your notes, because they are never sent anywhere.</p>
 
-<p>Moodroll does send two kinds of anonymous technical data, both processed by Google Firebase: <strong>usage events</strong> and <strong>crash reports</strong>. They are listed in full in the next section. Neither ever contains a photo, a note, or which mood you tagged.</p>
+<p>Moodroll does send one kind of anonymous technical data, processed by Google Firebase: <strong>crash reports</strong>. There is no usage analytics in the app at all. Crash reports are listed in full in the next section, and one never contains a photo, a note, or which mood you tagged.</p>
 
-<h2>Usage and crash reports</h2>
+<h2>Crash reports</h2>
 
-<p>Moodroll is made by one person with no budget. These are how we find out whether the app works on phones we cannot hold, and whether anyone is using it.</p>
+<p>Moodroll is made by one person with no budget, and one thing has to leave your phone for it to work on phones we cannot hold: a report when something goes wrong.</p>
+
+<p><strong>Moodroll does not measure how you use it.</strong> There is no usage analytics in this app — not which screens you open, not how often, not which features you use, not whether you bought anything. That is switched off in the build itself rather than promised in a setting, so there is nothing to turn off and nothing to trust us about.</p>
 
 <p><strong>What is sent</strong></p>
 
-<ul><li><strong>That something happened, not what it was about</strong> — that a photo was taken, that a mood was tagged, that a photo or a camera card was shared, that a photo was developed again in the darkroom, that a fresh roll was loaded, that the Pro screen appeared, that a purchase was started, and that one completed. The list of events is fixed in the app's source; nothing you type is ever part of one.</li><li><strong>Which part of the app you did it from</strong> — for example, that a mood was recorded from the home screen widget rather than after taking a photo. This is how we tell whether the quick ways of recording a day are worth keeping. It says nothing about <em>what</em> you recorded.</li><li><strong>Which camera style</strong> the photo was taken with (an internal id such as <code>gold200</code>).</li><li><strong>That you saved a copy of your diary to a file, or restored one, and how many days it held.</strong> Not where you put the file, not what was in it — a count, and nothing else.</li><li><strong>When the app had to simplify a photograph</strong> — that some of the picture processing was dropped, and a one-word reason for it, such as the phone running short of memory. This is how a photo that came out worse than it should have gets fixed on a phone we cannot hold.</li><li><strong>Whether this installation has Moodroll Pro</strong> — a yes or no, and nothing about the purchase itself. It is what makes the numbers above readable at all: "is the app worth paying for" cannot be answered by a count that does not know who paid.</li><li><strong>What your phone's hardware could do</strong> — how much of its camera processing the app was allowed to turn off, and how long one test image took to render. This is what tells us whether the app is too slow on cheaper phones, which is the only way it gets fixed for them.</li><li><strong>Crash reports</strong> — the error, where in the code it happened, your phone's model, its Android version, and a random identifier Google generates for this installation.</li><li>Moodroll also <strong>downloads</strong> one number from Firebase, which decides when the Pro screen first appears. That is a download; it carries nothing about you.</li></ul>
+<ul><li><strong>Crash reports</strong> — the error and where in the code it happened, your phone's model, its Android version, and a random identifier Google generates for this installation. It is never given a note, a mood, a date, a tag or a file name.</li><li><strong>Two facts about your phone's hardware, attached to a crash report</strong> — which performance class the app decided your phone is in, and how much of its camera processing the app was allowed to turn off. They are what make a report actionable: the failures this app cares most about are the ones that <em>do not</em> crash — a photo quietly saved without effects, a render that ran out of memory and retried smaller — and those are only fixable if the report says which pipeline the photo went through.</li><li><strong>A one-line description of something the app handled and worked around</strong>, sent the same way, for the same reason. It describes the machinery talking about itself, never anything you wrote or shot.</li><li>Moodroll also <strong>downloads</strong> one number from Firebase, which decides when the Pro screen first appears. That is a download; it carries nothing about you.</li></ul>
 
 <p><strong>What is never sent</strong></p>
 
-<ul><li>Your photos or their thumbnails, in any form.</li><li>Your notes, the short one and the long one, and the tags you write on a day.</li><li><strong>Which mood you tagged.</strong> The app records <em>that</em> you tagged one — never which, and never with a date. This is deliberate and it is the line we care most about: "which mood, on which day" is the most sensitive thing Moodroll holds, and it does not leave your phone.</li><li>The dates of your entries, your streak, or anything else that could reconstruct your diary.</li><li>Your advertising ID and your device's Android ID. Both are switched <strong>off</strong>, and ad personalisation is switched off with them. Moodroll shows no ads and sells nothing to advertisers.</li></ul>
+<ul><li>Your photos or their thumbnails, in any form.</li><li>Your notes, the short one and the long one, and the tags you write on a day.</li><li><strong>Which mood you tagged, or that you tagged one at all.</strong> This is the line we care most about: "which mood, on which day" is the most sensitive thing Moodroll holds, and it does not leave your phone.</li><li>The dates of your entries, your streak, or anything else that could reconstruct your diary.</li><li><strong>Anything about how you use the app</strong> — which screens, which cameras, how many photos, whether you opened the Pro screen, whether you bought it.</li><li>Your advertising ID and your device's Android ID. Both are switched <strong>off</strong>, ad personalisation is switched off with them, and the advertising-ID permission is removed from the app entirely. Moodroll shows no ads and sells nothing to advertisers.</li></ul>
 
 <p>Google's handling of what is sent is covered by <a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
 
@@ -144,7 +146,7 @@ footer { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--l
 
 <h3>About the network permissions</h3>
 
-<p>If you look at Moodroll's permission list you will see <code>INTERNET</code> and a few related ones. Two things use them: the usage and crash reports described above, and Google's Play Billing library, which the app includes in order to sell Moodroll Pro. Purchases themselves go through the Google Play Store app on your phone, not over a connection Moodroll opens.</p>
+<p>If you look at Moodroll's permission list you will see <code>INTERNET</code> and a few related ones. Two things use them: the crash reports described above, and Google's Play Billing library, which the app includes in order to sell Moodroll Pro. Purchases themselves go through the Google Play Store app on your phone, not over a connection Moodroll opens.</p>
 
 <p>We are telling you this because we would rather explain it than have you find it. <strong>No photo, mood or note is uploaded by Moodroll</strong>, with or without those permissions — that is the promise the app is built around, and it is the one thing here that will not change.</p>
 
@@ -169,6 +171,12 @@ footer { margin-top: 3.5rem; padding-top: 1.25rem; border-top: 1px solid var(--l
 <h2>Contact</h2>
 
 <p>Questions about privacy: <strong>thanhbinhntn2018@gmail.com</strong></p>
+
+<h3>Camera controls</h3>
+
+<p>Moodroll stores guides, horizon, haptics, exposure defaults, shooting-mode preferences, zoom stops, selfie mirroring, the gallery pause and the printed-frame override in private preferences. Camera controls can be exported explicitly as a versioned JSON file through the Android document picker. The file includes date stamp and shutter sound, but excludes photos, journal entries, authored camera presets, purchases and app lock. Presets have a separate ZIP backup with merge-on-restore; journal ZIP transfer is separate. Each destination is selected explicitly through the document picker.</p>
+
+<p>Location tagging is optional and asks for Android location permission. Location updates run only while the camera screen is started. Fresh available coordinates are written to JPEG metadata and the original image when enabled. PNG gallery exports do not include GPS metadata. Sharing a tagged JPEG can reveal its capture location. The app does not upload these coordinates.</p>
 
 <footer>Moodroll · com.ntb.moodroll.app · Last updated: 25 August 2026</footer>
 </main>
